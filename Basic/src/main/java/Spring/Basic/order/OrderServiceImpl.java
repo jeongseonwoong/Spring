@@ -1,11 +1,8 @@
 package Spring.Basic.order;
 
 import Spring.Basic.discount.DiscountPolicy;
-import Spring.Basic.discount.FixDiscountPolicy;
-import Spring.Basic.discount.RateDiscountPolicy;
 import Spring.Basic.member.Member;
 import Spring.Basic.member.MemberService;
-import Spring.Basic.member.MemberServiceImpl;
 
 public class OrderServiceImpl implements OrderService{
 
@@ -23,5 +20,9 @@ public class OrderServiceImpl implements OrderService{
         int discountPrice = discountPolicy.discount(member,itemPrice);
         Order order = new Order(memberId, itemName,itemPrice,discountPrice);
         return order;
+    }
+
+    public MemberService findMemberService() {
+        return memberService;
     }
 }

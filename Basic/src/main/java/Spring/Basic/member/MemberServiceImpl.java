@@ -21,4 +21,8 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberRepository.findById(id);
         return member.orElse(null);
     }
+
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
 }
