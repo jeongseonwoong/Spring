@@ -3,9 +3,9 @@ package Spring.Basic.prototype;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
-public class MyBean {
+public class MyBean2 {
 
-    private int count;
+    private int count =0;
 
     @PostConstruct
     public void init() {
@@ -23,7 +23,8 @@ public class MyBean {
         return count;
     }
 
-    public int getCount() {
+    public int getCount()
+    {
         return count;
     }
 }
