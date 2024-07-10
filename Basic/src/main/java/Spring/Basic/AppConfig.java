@@ -11,6 +11,7 @@ import Spring.Basic.order.OrderService;
 import Spring.Basic.order.OrderServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class AppConfig {
