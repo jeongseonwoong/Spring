@@ -2,6 +2,7 @@ package Spring.Basic.prototype;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,6 +61,7 @@ public class ProtoTypeTest {
         nb.getMyBean().add();
         Assertions.assertThat(nb.getMyBean().getCount()).isEqualTo(0);
         Assertions.assertThat(nb.getMyBean().add()).isEqualTo(1);
+
 
     }
 
