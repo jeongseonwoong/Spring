@@ -15,9 +15,11 @@ public class JpaMain {
         transaction.begin();
         try{
             //영속
-            Member member= entityManager.find(Member.class, 1L);
-            member.setName("GalBae");
-
+            Member member = entityManager.find(Member.class, 3L);
+            member.setUsername("d");
+            member.setAge(22);
+            member.setRoleType(RoleType.ADMIN);
+            transaction.commit();
         } catch (Exception e){
             transaction.rollback();
         } finally{
@@ -27,5 +29,6 @@ public class JpaMain {
 
         entityManager.close();
         entityManagerFactory.close();
+
     }
 }
