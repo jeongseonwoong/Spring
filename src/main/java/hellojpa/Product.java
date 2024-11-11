@@ -10,16 +10,13 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Team {
-
+public class Product {
     @Id
     @GeneratedValue
-    @Column(name="TEAM_ID")
     private Long id;
+
     private String name;
 
-    @OneToMany(mappedBy = "team")
-    private List<Member> members= new ArrayList<>();
-
-
+    @OneToMany(mappedBy = "prodcut")
+    private List<MemberProduct> members = new ArrayList<>();
 }
