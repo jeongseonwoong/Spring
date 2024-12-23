@@ -9,28 +9,33 @@ import java.util.List;
 public class JpaMain {
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
-        EntityManager entityManager =entityManagerFactory.createEntityManager();
+        EntityManager em =entityManagerFactory.createEntityManager();
         //code
-        EntityTransaction transaction = entityManager.getTransaction();
+        EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         try{
+
             Team team = new Team();
-            team.setName("TeamA");
-            entityManager.persist(team);
+            team.setName("teamA");
+            em.persist(team);
 
-            Member member = new Member();
-            member.setUsername("member1");
-            member.changeTeam(team);
-            entityManager.persist(member);
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.setTeam(team);
+            em.persist(member1);
 
+            em.flush();
+            em.clear();
+
+            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class).getResultList();
             transaction.commit();
         } catch (Exception e){
             transaction.rollback();
         } finally{
-            entityManager.close();
+            em.close();
         }
 
-        entityManager.close();
+        em.close();
         entityManagerFactory.close();
     }
 }

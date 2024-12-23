@@ -2,9 +2,9 @@
 //
 //
 //
+//
+//
 //import jpabook.jpashop.domain.Member;
-//import jpabook.jpashop.domain.Order;
-//import jpabook.jpashop.domain.OrderItem;
 //
 //import javax.persistence.EntityManager;
 //import javax.persistence.EntityManagerFactory;
@@ -14,21 +14,33 @@
 //public class JPAMain {
 //    public static void main(String[] args) {
 //        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
-//        EntityManager entityManager =entityManagerFactory.createEntityManager();
+//        EntityManager em =entityManagerFactory.createEntityManager();
 //        //code
-//        EntityTransaction transaction = entityManager.getTransaction();
+//        EntityTransaction transaction = em.getTransaction();
 //        transaction.begin();
 //        try{
-//            Order order = new Order();
-//            order.addOrderItem(new OrderItem());
+//            Member member = new Member();
+//            member.setName("hello");
+//
+//            em.persist(member);
+//
+//            em.flush();
+//            em.clear();
+//
+//            //
+//            em.find(Member.class,member.getId());
+//            System.out.println("findMember.id = " + member.getId());
+//            System.out.println("findMember.username = " + member.getName());
+//
+//
 //            transaction.commit();
 //        } catch (Exception e){
 //            transaction.rollback();
 //        } finally{
-//            entityManager.close();
+//            em.close();
 //        }
 //
-//        entityManager.close();
+//        em.close();
 //        entityManagerFactory.close();
 //    }
 //}
