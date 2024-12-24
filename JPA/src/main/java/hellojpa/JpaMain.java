@@ -1,10 +1,13 @@
 package hellojpa;
 
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
+import java.util.Set;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -14,26 +17,39 @@ public class JpaMain {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         try{
-            Address homeAddress = new Address("Seoul", "abc street", "10-1");
-
             Member member = new Member();
             member.setUsername("member1");
-            member.setHomeAddress(homeAddress);
+            member.setHomeAddress(new Address("homeCity","street","10000"));
+
+            member.getFavoriteFoods().add("치킨");
+            member.getFavoriteFoods().add("족발");
+            member.getFavoriteFoods().add("피자");
+
+//            member.getAddressHistory().add(new Address("old1","street","1000"));
+//            member.getAddressHistory().add(new Address("old2","street","2000"));
+
             em.persist(member);
 
-            Member member2 = new Member();
-            member2.setUsername("member2");
-            member2.setHomeAddress(homeAddress);
-            em.persist(member2);
+            em.flush();
+            em.clear();
 
-            Address copyAddress = new Address(homeAddress.getCity(), homeAddress.getStreet(), homeAddress.getZipcode());
-            Member member3 = new Member();
-            member3.setUsername("member2");
-            member3.setHomeAddress(homeAddress);
-            em.persist(member3);
+            System.out.println("=======================");
+            Member findMember = em.find(Member.class, member.getId());
 
-            System.out.println(homeAddress.equals(copyAddress));
+            //homeCity -> newCity
+
+//            Address a= findMember.getHomeAddress();
+//            findMember.setHomeAddress(new Address("newCity",a.getStreet(),a.getZipcode()));
+
+            //치킨 -> 한식
+//            findMember.getFavoriteFoods().remove("치킨");
+//            findMember.getFavoriteFoods().add("한식");
+
+            findMember.getAddressHistory().remove(new AddressEntity("newCity1","street","2000"));
+            findMember.getAddressHistory().add(new AddressEntity("newCity1","street","2000"));
+
             transaction.commit();
+
         } catch (Exception e){
             transaction.rollback();
         } finally{
