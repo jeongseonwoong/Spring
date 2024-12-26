@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,7 +21,12 @@ public class Member {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
+    @Enumerated(EnumType.STRING)
     private MemberType type;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    private List<Order> orderList;
+
     public void changeTeam(Team team){
         this.team = team;
         team.getMembers().add(this);

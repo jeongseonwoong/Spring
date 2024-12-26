@@ -19,4 +19,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name="PRODUCT_ID")
     private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 }
