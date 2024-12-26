@@ -39,23 +39,12 @@ public class JPAMain {
             member3.setTeam(teamB);
             em.persist(member3);
 
-            em.flush();
-            em.clear();
+            int resultCount = em.createQuery("update Member m set m.age = 20")
+                    .executeUpdate();
 
-            String query = "select t from Team t join fetch t.members";
-            List<Team> result = em.createQuery(query, Team.class)
-                    .setFirstResult(0)
-                    .setMaxResults(1)
-                    .getResultList();
-            for (Team team : result) {
-                System.out.println("Team Name = " + team.getName());
-                System.out.print("Team Member = ");
-                for (Member member : team.getMembers()) {
-                    System.out.print(member.getUsername() + " ");
-                }
-                System.out.println();
-            }
+            Member member = em.find(Member.class, member1.getId());
 
+            System.out.println(resultCount);
 
             transaction.commit();
         } catch (Exception e){
