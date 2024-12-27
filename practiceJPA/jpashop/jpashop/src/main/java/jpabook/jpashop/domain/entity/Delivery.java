@@ -1,19 +1,19 @@
-package jpabook.jpashop.entity;
+package jpabook.jpashop.domain.entity;
 
 import jakarta.persistence.*;
-import jpabook.jpashop.enums.DeliveryStatus;
-import jpabook.jpashop.valuetype.Address;
+import jpabook.jpashop.domain.enums.DeliveryStatus;
+import jpabook.jpashop.domain.valuetype.Address;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @Table(name = "DELIVERY")
 public class Delivery {
 
     @Id
     @GeneratedValue
+    @Column(name = "DELIVERY_ID")
     private Long id;
 
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
@@ -22,5 +22,6 @@ public class Delivery {
     @Embedded
     private Address address;
 
-    private DeliveryStatus status;
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus status;//[READY, COMP]
 }

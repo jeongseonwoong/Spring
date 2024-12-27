@@ -1,7 +1,7 @@
-package jpabook.jpashop.entity;
+package jpabook.jpashop.domain.entity;
 
 import jakarta.persistence.*;
-import jpabook.jpashop.entity.item.Item;
+import jpabook.jpashop.domain.entity.item.Item;
 
 @Entity
 @Table(name = "CATEGORY_ITEM")

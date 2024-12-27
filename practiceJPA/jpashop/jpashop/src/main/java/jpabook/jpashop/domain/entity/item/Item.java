@@ -1,12 +1,17 @@
-package jpabook.jpashop.entity.item;
+package jpabook.jpashop.domain.entity.item;
 
 import jakarta.persistence.*;
-import jpabook.jpashop.entity.Category;
+import jpabook.jpashop.domain.entity.Category;
+import jpabook.jpashop.domain.entity.CategoryItem;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Getter @Setter
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE")
 public abstract class Item {
 
@@ -21,9 +26,10 @@ public abstract class Item {
     @Column(name = "PRICE")
     private int price;
 
+    @Column(name = "STOCK_QUANTITY")
     private int stockQuantity;
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
-    private List<Category> Categories;
+    private List<CategoryItem> categories = new ArrayList<>();
 
 }

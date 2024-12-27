@@ -1,11 +1,12 @@
-package jpabook.jpashop.entity;
+package jpabook.jpashop.domain.entity;
 
 import jakarta.persistence.*;
-import jpabook.jpashop.entity.item.Item;
+import jpabook.jpashop.domain.enums.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,8 +15,8 @@ import java.util.List;
 @Table(name = "ORDERS")
 public class Order {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
+    @Column(name = "ORDER_ID")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,14 +24,15 @@ public class Order {
     private Member member;
 
     @OneToMany(mappedBy = "order")
-    private List<Item> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
 
     @Column(name = "ORDERDATE")
-    private LocalDateTime orderDate;
+    private LocalDateTime orderDate; //주문시간
 
-
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;//주문상태 [ORDER, CANCEL]
 }

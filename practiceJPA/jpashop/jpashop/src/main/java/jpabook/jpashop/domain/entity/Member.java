@@ -1,20 +1,20 @@
-package jpabook.jpashop.entity;
+package jpabook.jpashop.domain.entity;
 
 import jakarta.persistence.*;
-import jpabook.jpashop.valuetype.Address;
+import jpabook.jpashop.domain.valuetype.Address;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @Table(name = "MEMBER")
 public class Member {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
+    @Column(name = "MEMBER_ID")
     private Long id;
 
     @Column(name = "NAME")
@@ -25,5 +25,5 @@ public class Member {
     private Address address;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 }
