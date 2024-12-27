@@ -26,4 +26,11 @@ public class Member {
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
+
+    //==연관관계 편의 메서드==//
+    public void addOrder(Order order){
+        orders.add(order);
+        order.setMember(this);
+    }
+
 }
