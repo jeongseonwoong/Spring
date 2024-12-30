@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.*;
 import jpabook.jpashop.domain.dto.OrderSearch;
 import jpabook.jpashop.domain.entity.Member;
 import jpabook.jpashop.domain.entity.Order;
+import jpabook.jpashop.domain.enums.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -98,4 +99,35 @@ public class OrderRepository {
 
         return query.getResultList();
     }
+
+
+//    public List<Order> findAllByQuerydsl(OrderSearch orderSearch){
+//
+//        QOrder order = QOrder.order;
+//        QMember member = QMember.member;
+//
+//        return query
+//                .select(order)
+//                .from(order)
+//                .join(order.member,member)
+//                .where(statusEq(orderSearch.getOrderStatus()),
+//                        nameLike(orderSearch.getMemberName()))
+//                .limit(1000)
+//                .fetch();
+//    }
+//
+//    private BooleanExpression statusEq(OrderStatus statusCond){
+//        if(statusCond == null){
+//            return null;
+//        }
+//        return order.status.eq(statusCond);
+//    }
+//
+//    private BooleanExpression nameLike(String nameCond){
+//        if(!StringUtils.hasText(nameCond)){
+//            return null;
+//        }
+//        return member.name.like(nameCond);
+//    }
+
 }
