@@ -21,13 +21,13 @@ public abstract class Item {
     private Long id;
 
     @Column(name = "NAME")
-    private String name;
+    protected String name;
 
     @Column(name = "PRICE")
-    private int price;
+    protected int price;
 
     @Column(name = "STOCK_QUANTITY")
-    private int stockQuantity;
+    protected int stockQuantity;
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<CategoryItem> categories = new ArrayList<>();
