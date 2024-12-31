@@ -11,6 +11,7 @@ import jpabook.jpashop.repository.ItemRepository;
 import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -31,7 +33,6 @@ public class OrderService {
         /**
          주문 로직
          */
-
         //엔티티 조회
         Member member = memberRepository.findOne(memberId);
         Item item = itemRepository.findOne(itemId);
@@ -65,7 +66,8 @@ public class OrderService {
     }
 
     public List<Order> findOrders(OrderSearch orderSearch){
-        return orderRepository.findAll(orderSearch);
+        log.info(String.valueOf(orderSearch.getOrderStatus()));
+        return orderRepository.findAllByString(orderSearch);
     }
 
 }

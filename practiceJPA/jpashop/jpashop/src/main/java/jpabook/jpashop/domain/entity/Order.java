@@ -37,6 +37,7 @@ public class Order {
     private LocalDateTime orderDate; //주문시간
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "ORDERSTATUS")
     private OrderStatus orderStatus;//주문상태 [ORDER, CANCEL]
 
     //==연관관계 메서드==//

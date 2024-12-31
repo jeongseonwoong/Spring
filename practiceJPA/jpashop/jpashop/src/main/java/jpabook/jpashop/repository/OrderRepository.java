@@ -52,7 +52,7 @@ public class OrderRepository {
             } else {
                 jpql += " and";
             }
-            jpql += " o.status = :status";
+            jpql += " o.orderStatus = :status";
         }
         //회원 이름 검색
         if (StringUtils.hasText(orderSearch.getMemberName())) {
