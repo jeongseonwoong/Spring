@@ -16,4 +16,13 @@ public class BookForm {
 
     private String author;
     private String isbn;
+
+    public void updateBookForm(Long id, String name, int price, int stockQuantity, String author, String isbn){
+        this.id =id;
+        this.name =name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.author = author;
+        this.isbn = isbn;
+    }
 }

@@ -48,22 +48,14 @@ public class ItemController {
     public String updateItemForm(@PathVariable("itemId")Long itemId, Model model){
         BookForm bookForm = new BookForm();
         Book book = (Book) itemService.findOne(itemId);
-        bookForm.setId(book.getId());
-        bookForm.setIsbn(book.getIsbn());
-        bookForm.setName(book.getName());
-        bookForm.setPrice(book.getPrice());
-        bookForm.setAuthor(book.getAuthor());
-        bookForm.setStockQuantity(book.getStockQuantity());
-
+        bookForm.updateBookForm(book.getId(), book.getName(), book.getPrice(), book.getStockQuantity(), book.getAuthor(), book.getIsbn());
         model.addAttribute("form",bookForm);
         return "items/updateItemForm";
     }
 
     @PostMapping("{itemId}/edit")
     public String updateItem(@PathVariable("itemId")Long itemId, Model model, BookForm bookForm){
-        Book book = (Book) itemService.findOne(itemId);
-        book.updateBook(bookForm.getName(), bookForm.getPrice(), bookForm.getStockQuantity(), bookForm.getAuthor(), bookForm.getIsbn());
-        itemService.saveItem(book);
+        itemService.updateItem(itemId,bookForm.getName(),bookForm.getPrice(), bookForm.getStockQuantity());
         return "redirect:/items";
     }
 
