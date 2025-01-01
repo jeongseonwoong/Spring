@@ -40,4 +40,14 @@ public class MemberService {
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
     }
+
+    //회원정보 수정
+    @Transactional
+    public void update(Long id, String name) {
+        /**
+         * 변경 감지 사용
+         */
+        Member findMember = memberRepository.findOne(id);
+        findMember.updateValueForModify(name);
+    }
 }
