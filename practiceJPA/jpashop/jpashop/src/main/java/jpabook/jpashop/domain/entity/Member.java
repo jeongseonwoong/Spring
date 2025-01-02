@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jpabook.jpashop.domain.valuetype.Address;
@@ -25,7 +26,7 @@ public class Member {
     @Column(name = "ADDRESS")
     private Address address;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
 

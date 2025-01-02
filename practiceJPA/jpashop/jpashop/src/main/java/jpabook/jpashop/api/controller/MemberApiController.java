@@ -57,7 +57,8 @@ public class MemberApiController {
          * Order 엔티티가 다시 Member를 참조하면서
          * JSON 직렬화 과정에서 계속 순환 참조가 발생하여
          * 무한 루프가 생성
-         * -> @JSONIgnore로 해결(Entity에 화면 로직이 들어감, 각 api 요청에 따른 유연한 대처 불가능)/
+         * -> @JSONIgnore로 해결(Entity에 화면 로직이 들어감, 각 api 요청에 따른 유연한 대처 불가능,
+         *                      json이 LAZY로 인해 프록시 객체로 설정된 객체를 읽어들이지 못해 오류가 발생)/
          * -> DTO로 해결(추천)
          */
         return memberService.findMembers();
