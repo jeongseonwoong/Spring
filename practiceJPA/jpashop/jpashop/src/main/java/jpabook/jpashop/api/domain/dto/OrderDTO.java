@@ -15,4 +15,5 @@ public class OrderDTO {
     private Delivery delivery;
     private LocalDateTime orderDate;
     private OrderStatus orderStatus;
+
 }
