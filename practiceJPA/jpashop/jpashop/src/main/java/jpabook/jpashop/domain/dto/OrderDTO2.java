@@ -1,10 +1,8 @@
-package jpabook.jpashop.api.domain.dto;
+package jpabook.jpashop.domain.dto;
 
-import jpabook.jpashop.domain.entity.Delivery;
 import jpabook.jpashop.domain.entity.OrderItem;
 import jpabook.jpashop.domain.enums.OrderStatus;
 import jpabook.jpashop.domain.valuetype.Address;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

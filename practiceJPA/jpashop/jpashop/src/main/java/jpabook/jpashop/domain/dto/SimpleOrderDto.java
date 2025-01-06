@@ -1,4 +1,4 @@
-package jpabook.jpashop.api.domain.dto;
+package jpabook.jpashop.domain.dto;
 
 import jpabook.jpashop.domain.entity.Order;
 import jpabook.jpashop.domain.enums.OrderStatus;

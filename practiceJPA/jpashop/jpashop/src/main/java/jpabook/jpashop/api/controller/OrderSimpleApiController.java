@@ -1,7 +1,7 @@
 package jpabook.jpashop.api.controller;
 
-import jpabook.jpashop.api.domain.dto.OrderSimpleQueryDto;
-import jpabook.jpashop.api.domain.dto.SimpleOrderDto;
+import jpabook.jpashop.domain.dto.OrderSimpleQueryDto;
+import jpabook.jpashop.domain.dto.SimpleOrderDto;
 import jpabook.jpashop.domain.dto.OrderSearch;
 import jpabook.jpashop.domain.entity.Order;
 import jpabook.jpashop.repository.OrderRepository;

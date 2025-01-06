@@ -4,7 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 
-import jpabook.jpashop.api.domain.dto.OrderSimpleQueryDto;
+import jpabook.jpashop.domain.dto.OrderSimpleQueryDto;
 import jpabook.jpashop.domain.dto.OrderSearch;
 import jpabook.jpashop.domain.entity.Member;
 import jpabook.jpashop.domain.entity.Order;
@@ -126,6 +126,16 @@ public class OrderRepository {
                                 " join fetch o.delivery d" +
                                 " join fetch o.orderItems oi" +
                                 " join fetch oi.item i", Order.class)
+                .getResultList();
+    }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                        "select o from Order o" +
+                                " join fetch o.member m" +
+                                " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
                 .getResultList();
     }
 }

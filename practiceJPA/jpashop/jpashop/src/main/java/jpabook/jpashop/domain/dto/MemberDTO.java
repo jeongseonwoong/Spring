@@ -1,11 +1,10 @@
-package jpabook.jpashop.api.domain.dto;
+package jpabook.jpashop.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class UpdateMemberResponse {
-    private Long id;
+public class MemberDTO {
     private String name;
 }
