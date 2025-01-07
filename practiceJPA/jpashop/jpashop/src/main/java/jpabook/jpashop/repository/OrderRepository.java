@@ -8,6 +8,7 @@ import jpabook.jpashop.domain.dto.OrderSimpleQueryDto;
 import jpabook.jpashop.domain.dto.OrderSearch;
 import jpabook.jpashop.domain.entity.Member;
 import jpabook.jpashop.domain.entity.Order;
+import jpabook.jpashop.domain.entity.OrderItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -73,7 +74,15 @@ public class OrderRepository {
         if (StringUtils.hasText(orderSearch.getMemberName())) {
             query = query.setParameter("name", orderSearch.getMemberName());
         }
-        return query.getResultList();
+        List<Order> resultList = query.getResultList();
+        for (Order order : resultList) {
+            order.getMember().getName();
+            order.getDelivery().getAddress();
+
+            List<OrderItem> orderItems = order.getOrderItems();
+            orderItems.forEach(o->o.getItem().getName());
+        }
+        return resultList;
     }
 
     public List<Order> findAllByCriteria(OrderSearch orderSearch) {
