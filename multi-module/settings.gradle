@@ -1,0 +1,8 @@
+rootProject.name = 'multi-module'
+
+include 'library'
+include 'application'
+include 'application2'
+include 'application'
+include 'library'
+
