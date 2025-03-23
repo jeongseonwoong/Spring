@@ -19,13 +19,18 @@
         });
 
         var logout = function() {
-            $.post("/logout", function() {
-                $("#user").html('');
-                $(".unauthenticated").show();
-                $(".authenticated").hide();
-            })
+            $.ajax({
+                type: "POST",
+                url: "/logout",
+                success: function() {
+                    $("#user").html('');
+                    $(".unauthenticated").show();
+                    $(".authenticated").hide();
+                }
+            });
             return true;
         }
+
 
         $.ajaxSetup({
             beforeSend : function(xhr, settings) {
