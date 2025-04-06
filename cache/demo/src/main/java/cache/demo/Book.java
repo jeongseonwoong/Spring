@@ -1,6 +1,9 @@
 package cache.demo;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Book {
 
     private String isbn;
