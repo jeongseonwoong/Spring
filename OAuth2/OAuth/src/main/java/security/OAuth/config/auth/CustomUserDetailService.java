@@ -12,12 +12,19 @@ import security.OAuth.repository.UserRepository;
 // /login 요청이 오면 자동으로 UserDetailsService 타입으로 IOC 되어있는 loadUserByUsername 함수가 실행
 @Service
 @RequiredArgsConstructor
-public class PrincipalDetailsService implements UserDetailsService {
+public class CustomUserDetailService implements UserDetailsService {
 
     private final UserRepository userRepository;
+
+    //시큐리티 session = Autnetication를 가지고 있고 Authentication = UserDetails 상태인데
+    //여기서 UserDetails를 반환하면 Authentication에 UserDetails 정보가 들어간다. Session(Authentication(UserDetails))
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        return null;
+        if(user==null){
+            throw new UsernameNotFoundException("유저를 찾을 수 없습니다. username: "+ username);
+        }
+        return UserPrincipal.create(user);
     }
 }
