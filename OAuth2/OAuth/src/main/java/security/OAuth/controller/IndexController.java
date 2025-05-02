@@ -2,6 +2,8 @@ package security.OAuth.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,11 +31,13 @@ public class IndexController {
     }
 
     @GetMapping("/admin")
+    @ResponseBody
     public String admin(){
         return "admin";
     }
 
     @GetMapping("/manager")
+    @ResponseBody
     public String manager(){
         return "manager";
     }
@@ -53,10 +57,21 @@ public class IndexController {
     public String join(UserForm userForm){
         log.info(userForm.getUsername());
         User user = new User(userForm);
-        user.assignRole(Role.USER);
+        user.assignRole(Role.ROLE_USER);
         user.bcryptPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user); //회원가입 비밀번호: 1234 => 시큐리티 로그인 불가능. why? 패스워드가 암호화가 안되었기 때문에
         return "redirect:/loginForm";
     }
 
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/info") @ResponseBody
+    public String info(){
+        return "개인정보";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
+    @GetMapping("/data") @ResponseBody
+    public String data(){
+        return "데이터";
+    }
 }
