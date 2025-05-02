@@ -25,6 +25,6 @@ public class CustomUserDetailService implements UserDetailsService {
         if(user==null){
             throw new UsernameNotFoundException("유저를 찾을 수 없습니다. username: "+ username);
         }
-        return UserPrincipal.create(user);
+        return CustomUserDetails.create(user);
     }
 }
