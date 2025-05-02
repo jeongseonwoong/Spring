@@ -1,2 +1,5 @@
-package security.OAuth.Entity;public enum Role {
+package security.OAuth.Entity;
+
+public enum Role {
+    USER,MANAGER,ADMIN
 }
