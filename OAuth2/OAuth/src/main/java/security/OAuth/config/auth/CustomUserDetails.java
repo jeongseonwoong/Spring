@@ -1,5 +1,4 @@
 package security.OAuth.config.auth;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,16 +12,16 @@ import java.util.Collections;
 // 시큐리티 세션에 들어갈 수 있는 Object는 정해져있음. (Authentication 객체)
 // Authentication 안에 User 정보가 있어야됨.
 // User오브젝트 타입을 UserDetails 타입으로 바꿔야함
-// Security Session => Authentication => UserDetails(UserPrincipal)
+// Security Session => Authentication => UserDetails(CustomUserDetails)
 
-public class UserPrincipal implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
     private User user;
 
-    private UserPrincipal(User user){this.user = user;}
+    private CustomUserDetails(User user){this.user = user;}
 
-    public static UserPrincipal create(User user){
-        return new UserPrincipal(user);
+    public static CustomUserDetails create(User user){
+        return new CustomUserDetails(user);
     }
 
     // 해당 User의 권한을 리턴하는 곳!
