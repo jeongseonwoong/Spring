@@ -4,11 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import security.OAuth.Entity.Role;
 import security.OAuth.Entity.User;
+import security.OAuth.config.auth.CustomUserDetails;
 import security.OAuth.dto.UserForm;
 import security.OAuth.repository.UserRepository;
 
@@ -73,5 +77,18 @@ public class IndexController {
     @GetMapping("/data") @ResponseBody
     public String data(){
         return "데이터";
+    }
+
+    @GetMapping("/test/login") @ResponseBody
+    public String testLogin(Authentication authentication, @AuthenticationPrincipal UserDetails userDetails2){
+        //Authentication 객체 안에 Principal이 있고 Principal을 CustomUserDetails로 형변환하여 user 정보 가져올 수 있음
+        log.info("================/test/login==================");
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        log.info("=================Authentication==================");
+        log.info("authentication: {}", userDetails.getUser());
+
+        log.info("=================@Authentication==================");
+        log.info("userDetails: {}", userDetails2.getUsername());
+        return "세션 정보 확인";
     }
 }
