@@ -1,5 +1,6 @@
 package security.OAuth.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -9,12 +10,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import security.OAuth.config.oauth.CustomOAuth2UserService;
 
 @Configuration
 @EnableWebSecurity // 활성화 <- 우리가 작성할 스프링 시큐리티 필터가 스프링 필터 체인에 등록이 된다.
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) //secured 어노테이션 활성화
+@RequiredArgsConstructor
 public class SecurityConfig{
 
+    private final CustomOAuth2UserService customOAuth2UserService;
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
@@ -36,11 +40,17 @@ public class SecurityConfig{
                         .clearAuthentication(true) //Authentication 객체 클리어
                         .deleteCookies("JSESSIONID") //삭제할 쿠키 이름들
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) //(선택) GET 요청으로도 로그아웃 허용
-                ).formLogin(form -> form
-                .loginPage("/loginForm")
-                .loginProcessingUrl("/login") //
-                .defaultSuccessUrl("/")
-                ); // 권한이 없는 페이지에 access를 요청할 때 로그인 페이지로 이동하도록 하기.
+                ).formLogin(form -> form // 권한이 없는 페이지에 access를 요청할 때 로그인 페이지로 이동하도록 하기.
+                .loginPage("/loginForm") //로그인 페이지 url
+                .loginProcessingUrl("/login") //로그인 진행 URL
+                .defaultSuccessUrl("/") //성공 시 redirect할 url
+                ).oauth2Login(oauth2 -> oauth2
+                .loginPage("/loginForm") //폼 로그인과 동일한 커스텀 로그인 페이지 사용
+                .defaultSuccessUrl("/") // 성공 시 redirect할 url
+                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
+                        .userService(customOAuth2UserService)
+                )
+        );
 
         return http.build();
     }
