@@ -1,4 +1,5 @@
 package security.OAuth.config.auth;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ import java.util.Collections;
 // User오브젝트 타입을 UserDetails 타입으로 바꿔야함
 // Security Session => Authentication => UserDetails(CustomUserDetails)
 
+@Getter
 public class CustomUserDetails implements UserDetails {
 
     private User user;
