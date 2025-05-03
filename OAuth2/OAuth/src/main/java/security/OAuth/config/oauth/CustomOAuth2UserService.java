@@ -21,7 +21,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         log.info("userRequest.getAccessToken: {}", userRequest.getAccessToken().getTokenValue());
         log.info("userRequest.getAdditionalParameters: {}", userRequest.getAdditionalParameters());
         log.info("userRequest.getAttributes: {}", super.loadUser(userRequest).getAttributes());
+        // 구글 로그인 버튼 클릭 -> 구글 로그인 창 -> 로그인 완료 -> code를 리턴(OAuth-client라이브러리) -> AccessToken 요청
+        // userRequest 정보 -> loadUser함수 호출 -> 구글로부터 회원 프로필을 받음
 
+        OAuth2User oAuth2User = super.loadUser(userRequest);
         return super.loadUser(userRequest);
     }
 
