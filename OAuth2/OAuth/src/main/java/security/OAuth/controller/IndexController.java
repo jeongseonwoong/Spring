@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import security.OAuth.Entity.Role;
@@ -30,7 +31,7 @@ public class IndexController {
     }
 
     @GetMapping("/user") @ResponseBody
-    public String user(){
+    public String user(@AuthenticationPrincipal CustomUserDetails customUserDetails){
         return "user";
     }
 
@@ -89,6 +90,17 @@ public class IndexController {
 
         log.info("=================@Authentication==================");
         log.info("userDetails: {}", userDetails2.getUsername());
+        return "세션 정보 확인";
+    }
+
+    @GetMapping("/test/oauth/login") @ResponseBody
+    public String testOAuthLogin(Authentication authentication, @AuthenticationPrincipal OAuth2User oAuth2User2){
+        //Authentication 객체 안에 Principal이 있고 Principal을 CustomUserDetails로 형변환하여 user 정보 가져올 수 있음
+        log.info("================/test/oauth/login==================");
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        log.info("oauth2User: {}", oAuth2User.getAttributes());
+
+        log.info("oauth2User: {}", oAuth2User2.getAttributes());
         return "세션 정보 확인";
     }
 }
