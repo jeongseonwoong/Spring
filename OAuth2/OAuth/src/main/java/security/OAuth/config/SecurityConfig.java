@@ -19,10 +19,6 @@ import security.OAuth.config.oauth.CustomOAuth2UserService;
 public class SecurityConfig{
 
     private final CustomOAuth2UserService customOAuth2UserService;
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
