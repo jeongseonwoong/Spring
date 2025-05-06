@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import security.OAuth.Entity.Role;
 import security.OAuth.Entity.User;
-import security.OAuth.config.auth.CustomUserDetails;
+import security.OAuth.config.CustomUserDetails;
 import security.OAuth.repository.UserRepository;
 
 @Service

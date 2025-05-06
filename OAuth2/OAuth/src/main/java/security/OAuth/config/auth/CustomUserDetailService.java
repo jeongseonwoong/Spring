@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import security.OAuth.Entity.User;
+import security.OAuth.config.CustomUserDetails;
 import security.OAuth.repository.UserRepository;
 
 // 시큐리티 설정에서 loginProcessingUrl("/login");으로 걸어놨기 때문에

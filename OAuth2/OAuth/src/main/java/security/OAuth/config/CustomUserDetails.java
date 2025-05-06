@@ -1,4 +1,4 @@
-package security.OAuth.config.auth;
+package security.OAuth.config;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
