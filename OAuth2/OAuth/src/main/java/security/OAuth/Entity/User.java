@@ -2,11 +2,13 @@ package security.OAuth.Entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import security.OAuth.dto.UserForm;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -46,6 +48,17 @@ public class User {
         this.password = userForm.getPassword();
         this.email = userForm.getEmail();
         this.username = userForm.getUsername();
+    }
+
+    @Builder
+    public User(String username, String password, String email, Role role, String provider, String providerId, LocalDateTime createDate){
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.createdDate = createDate;
     }
 
 }
