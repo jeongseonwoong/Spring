@@ -1,2 +1,8 @@
-package security.OAuth.config.oauth.provider;public class OAuth2UserInfo {
+package security.OAuth.config.oauth.provider;
+
+public interface OAuth2UserInfo {
+    String getProviderId();
+    String getProvider();
+    String getEmail();
+    String getName();
 }
