@@ -21,6 +21,7 @@ public class CustomUserDetailService implements UserDetailsService {
     //여기서 UserDetails를 반환하면 Authentication에 UserDetails 정보가 들어간다. Session(Authentication(UserDetails))
 
     @Override
+    //해당함수 종료시 @AuthenticationPrincipal이 만들어짐.
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if(user==null){
