@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import security.OAuth.Entity.Role;
 import security.OAuth.Entity.User;
-import security.OAuth.config.auth.CustomUserDetails;
+import security.OAuth.config.CustomUserDetails;
 import security.OAuth.dto.UserForm;
 import security.OAuth.repository.UserRepository;
 
@@ -30,8 +30,11 @@ public class IndexController {
         return "index";
     }
 
+    //OAuth 로그인을 해도 CustomUserDetails
+    //일반 로그인을 해도 CustomUserDetails를 사용이 가능하다.
     @GetMapping("/user") @ResponseBody
     public String user(@AuthenticationPrincipal CustomUserDetails customUserDetails){
+        log.info("CustomUserDetails: {}", customUserDetails.getUser());
         return "user";
     }
 
