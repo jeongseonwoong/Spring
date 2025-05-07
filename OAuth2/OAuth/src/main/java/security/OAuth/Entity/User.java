@@ -1,10 +1,7 @@
 package security.OAuth.Entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import security.OAuth.dto.UserForm;
 
@@ -15,6 +12,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class User {
 
     @Id @GeneratedValue
@@ -60,5 +58,6 @@ public class User {
         this.providerId = providerId;
         this.createdDate = createDate;
     }
+
 
 }
