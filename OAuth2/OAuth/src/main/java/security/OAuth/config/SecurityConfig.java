@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import security.OAuth.config.auth.CustomUserDetailService;
 import security.OAuth.config.oauth.CustomOAuth2UserService;
 
 @Configuration
@@ -19,6 +20,7 @@ import security.OAuth.config.oauth.CustomOAuth2UserService;
 public class SecurityConfig{
 
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final CustomUserDetailService customUserDetailService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
