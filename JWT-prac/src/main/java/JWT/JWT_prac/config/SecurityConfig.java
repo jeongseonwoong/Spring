@@ -1,19 +1,18 @@
 package JWT.JWT_prac.config;
 
-import JWT.JWT_prac.entity.User;
-import JWT.JWT_prac.filter.MyFilter1;
 import JWT.JWT_prac.filter.TokenAuthenticationFIlter;
+import JWT.JWT_prac.jwt.LoginFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
@@ -33,6 +32,19 @@ public class SecurityConfig {
     }
 
     @Bean
+    public LoginFilter loginFilter(HttpSecurity http) throws Exception {
+        LoginFilter loginFilter = new LoginFilter();
+        loginFilter.setFilterProcessesUrl("/api/user/login");
+        loginFilter.setAuthenticationManager(authenticationManagerBean(http));
+        return loginFilter;
+    }
+
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    public AuthenticationManager authenticationManagerBean(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManager.class);
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(AbstractHttpConfigurer::disable) //csrf 비활성화
@@ -48,7 +60,11 @@ public class SecurityConfig {
                     .anyRequest().permitAll());
 
         http.addFilterBefore(tokenAuthenticationFIlter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(loginFilter(http), UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
+
+
 
 }
