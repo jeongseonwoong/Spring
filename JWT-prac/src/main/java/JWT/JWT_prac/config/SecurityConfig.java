@@ -1,6 +1,8 @@
 package JWT.JWT_prac.config;
 
+import JWT.JWT_prac.entity.User;
 import JWT.JWT_prac.filter.MyFilter1;
+import JWT.JWT_prac.filter.TokenAuthenticationFIlter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
@@ -22,6 +26,11 @@ public class SecurityConfig {
 
     private final CorsFilter corsFilter;
     private final CorsConfigurationSource corsSource;
+
+    @Bean
+    public TokenAuthenticationFIlter tokenAuthenticationFIlter(){
+        return new TokenAuthenticationFIlter();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -37,6 +46,8 @@ public class SecurityConfig {
                     .requestMatchers("/api/1/manager/**").hasAnyRole("MANAGER","ADMIN")
                     .requestMatchers("/api/1/admin/**").hasRole("ADMIN")
                     .anyRequest().permitAll());
+
+        http.addFilterBefore(tokenAuthenticationFIlter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
