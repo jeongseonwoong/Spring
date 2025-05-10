@@ -15,6 +15,14 @@ import security.OAuth.config.oauth.CustomOAuth2UserService;
 
 @Configuration
 @EnableWebSecurity // 활성화 <- 우리가 작성할 스프링 시큐리티 필터가 스프링 필터 체인에 등록이 된다.
+/**
+ * Spring Security 5.7 이후부터는
+ * 🔹 **WebSecurityConfigurerAdapter**가 deprecated 되었고
+ * 🔹 대신 @Bean SecurityFilterChain을 등록하는 방식으로 바뀌었어.
+ *
+ * Spring Boot 2.7+에서는 자동으로 @EnableWebSecurity를 붙인 효과가 활성화되기 때문에,
+ * SecurityFilterChain만 Bean으로 정의하면 Spring Security가 내부적으로 알아서 스프링 필터체인에 등록해줘.
+ */
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) //secured 어노테이션 활성화
 @RequiredArgsConstructor
 public class SecurityConfig{
