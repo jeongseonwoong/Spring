@@ -19,4 +19,10 @@ public class User {
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    public void createUser(String username, String encryptedPassword, Role role){
+        this.username = username;
+        this.password = encryptedPassword;
+        this.role = role;
+    }
 }
