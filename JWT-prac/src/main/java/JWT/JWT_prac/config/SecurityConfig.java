@@ -1,6 +1,6 @@
 package JWT.JWT_prac.config;
 
-import JWT.JWT_prac.filter.TokenAuthenticationFIlter;
+import JWT.JWT_prac.filter.TokenAuthenticationFilter;
 import JWT.JWT_prac.filter.jwt.LoginFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -33,8 +33,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public TokenAuthenticationFIlter tokenAuthenticationFIlter(){
-        return new TokenAuthenticationFIlter();
+    public TokenAuthenticationFilter tokenAuthenticationFIlter() throws Exception {
+        return new TokenAuthenticationFilter(authenticationConfiguration.getAuthenticationManager());
     }
 
     @Bean
