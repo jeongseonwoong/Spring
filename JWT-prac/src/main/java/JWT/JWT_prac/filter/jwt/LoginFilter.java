@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,11 +36,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
                     "Authentication method not supported: " + request.getMethod());
         }
 
+        //1. username, password 받아서
         LoginRequest loginRequest;
         try {
-            //1. username, password 받아서
             loginRequest = new ObjectMapper().readValue(request.getInputStream(), LoginRequest.class);
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
