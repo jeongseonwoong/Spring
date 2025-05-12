@@ -34,7 +34,7 @@ public class SecurityConfig {
 
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFIlter() throws Exception {
-        return new TokenAuthenticationFilter(authenticationConfiguration.getAuthenticationManager());
+        return new TokenAuthenticationFilter();
     }
 
     @Bean
@@ -56,8 +56,8 @@ public class SecurityConfig {
             .cors(cors-> cors.configurationSource(corsSource))
             .authorizeHttpRequests(authorize -> authorize
                     .requestMatchers("/api/v1/user/**").hasAnyRole("USER","MANAGER","ADMIN")
-                    .requestMatchers("/api/1/manager/**").hasAnyRole("MANAGER","ADMIN")
-                    .requestMatchers("/api/1/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/api/v1/manager/**").hasAnyRole("MANAGER","ADMIN")
+                    .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                     .anyRequest().permitAll());
 
         http.addFilterBefore(tokenAuthenticationFIlter(), UsernamePasswordAuthenticationFilter.class);
