@@ -2,6 +2,8 @@ package JWT.JWT_prac.filter.jwt;
 
 import JWT.JWT_prac.auth.CustomUserDetails;
 import JWT.JWT_prac.dto.LoginRequest;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -9,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +19,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
+import java.util.Date;
 
 //스프링 시큐리티에서 UsernamePasswordAuthenticationFilter가 있는데
 //이 필터는 /login을 요청해서 username, password를 post로 전송하면
@@ -71,9 +75,19 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
 
     //attemptAuthentication이 정상적으로 실행되었을 때 실행. 여기서 JWT 토큰을 만들어서 response;
+    //Hash 암호 방식
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        log.info("성공");
-        super.successfulAuthentication(request, response, chain, authResult);
+
+        CustomUserDetails customUserDetails = (CustomUserDetails) authResult.getPrincipal();
+        String jwtToken = JWT.create()
+                .withSubject(customUserDetails.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis()+(60000*10)))
+                .withClaim("id", customUserDetails.getId())
+                .withClaim("username",customUserDetails.getUsername())
+                .sign(Algorithm.HMAC512("abcd"));
+        log.info("successfulAuthentication 실행됨. token={}",jwtToken);
+
+        response.addHeader("Authorization","Bearer " + jwtToken);
     }
 }
