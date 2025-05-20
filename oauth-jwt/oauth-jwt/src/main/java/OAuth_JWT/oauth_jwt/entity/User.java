@@ -24,11 +24,13 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    public void registerUser(String username, String password, String name, Role role){
+    public void registerUser(String username, String password, String name, Role role, String email, String provider){
         this.username = username;
         this.password = password;
         this.name = name;
         this.role = role;
+        this.email = email;
+        this. provider =provider;
     }
 
 
