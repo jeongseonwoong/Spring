@@ -12,7 +12,7 @@ public class OAuth2Classifier {
         }else if(registrationId.equalsIgnoreCase("facebook")){
             return new FacebookOAuth2UserInfo(attributes);
         }else if(registrationId.equalsIgnoreCase("naver")){
-            return new NaverOAuth2UserInfo(attributes);
+            return new NaverOAuth2UserInfo((Map)attributes.get("response"));
         }
         throw new IllegalAccessException("구글, 페이스북, 네이버 소셜 로그인만 가능합니다.");
     }
