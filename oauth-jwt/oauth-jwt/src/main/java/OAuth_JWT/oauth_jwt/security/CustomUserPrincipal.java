@@ -8,7 +8,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 public class CustomUserPrincipal implements UserDetails, OAuth2User {
@@ -16,15 +15,15 @@ public class CustomUserPrincipal implements UserDetails, OAuth2User {
     private User user;
     private Map<String, Object> attributes;
 
-    CustomUserPrincipal(User user){
-        this.user =user;
+    CustomUserPrincipal(User user) {
+        this.user = user;
     }
 
-    public static CustomUserPrincipal create(User user){
+    public static CustomUserPrincipal create(User user) {
         return new CustomUserPrincipal(user);
     }
 
-    public static CustomUserPrincipal create(User user, Map<String,Object> attributes){
+    public static CustomUserPrincipal create(User user, Map<String, Object> attributes) {
         CustomUserPrincipal customUserPrincipal = CustomUserPrincipal.create(user);
         customUserPrincipal.setAttributes(attributes);
         return customUserPrincipal;
