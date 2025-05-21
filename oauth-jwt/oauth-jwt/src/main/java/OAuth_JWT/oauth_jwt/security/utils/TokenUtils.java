@@ -1,5 +1,7 @@
-package OAuth_JWT.oauth_jwt.security;
+package OAuth_JWT.oauth_jwt.security.utils;
 
+import OAuth_JWT.oauth_jwt.security.AppProperties;
+import OAuth_JWT.oauth_jwt.security.CustomUserPrincipal;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
