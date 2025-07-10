@@ -1,22 +1,20 @@
-package RabbitMQ.RabbitMQ.step1;
+package RabbitMQ.RabbitMQ.step2;
 
+import RabbitMQ.RabbitMQ.step1.Sender;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/messages")
 @RequiredArgsConstructor
-public class MessageController {
+public class MessageController2 {
 
-    private final Sender sender;
+    private final WorkQueueProducer workQueueProducer;
 
-    @PostMapping("/send")
-    public String sendMessage(@RequestBody String message) {
-        sender.send(message);
-        return "Message sent successfully";
+    @PostMapping("/workQueue")
+    public String sendMessage(@RequestBody String message, @RequestParam int duration) {
+        workQueueProducer.send(message,duration);
+        return "Work queue sent = " + message + ", (" + duration + ")";
     }
 
 }
