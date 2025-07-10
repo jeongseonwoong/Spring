@@ -1,1 +1,11 @@
-spring.application.name=RabbitMQ
+spring:
+  application:
+    name: RabbitMQ
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: tjsdnd11227
+server:
+  port: 8080
+

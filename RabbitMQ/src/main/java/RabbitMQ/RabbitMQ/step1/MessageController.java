@@ -1,4 +1,4 @@
-package RabbitMQ.RabbitMQ.step0;
+package RabbitMQ.RabbitMQ.step1;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
