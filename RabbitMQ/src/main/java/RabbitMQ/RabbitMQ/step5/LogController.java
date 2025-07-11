@@ -25,8 +25,8 @@ public class LogController {
     @GetMapping("/warn")
     public ResponseEntity<String> warnAPI(){
         try{
-            throw new IllegalAccessException("invalid argument입니다.");
-        } catch (IllegalAccessException e) {
+            throw new IllegalArgumentException("invalid argument입니다.");
+        } catch (IllegalArgumentException e) {
             customExceptionHandler.handleException(e);
         }
         return ResponseEntity.ok().body("IllegalArgument Exception 처리");
