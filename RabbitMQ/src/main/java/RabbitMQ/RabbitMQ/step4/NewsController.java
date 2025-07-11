@@ -11,6 +11,7 @@ public class NewsController {
 
     private final NewsPublisher newsPublisher;
 
+    //웹 소켓 기반으로 요청이 왔을 때 MessageMapping 사용
     @MessageMapping("/subscribe")
     public void handleSubscribe(@Header("newsType")String newsType){
         System.out.println("newsType: " + newsType);
