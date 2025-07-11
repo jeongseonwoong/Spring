@@ -12,7 +12,7 @@ public class NewsPublisher {
 
     private String publishMessage(String newsType, String messageSuffix){
         String message = newsType + messageSuffix;
-        // 각 뉴스 별로 라우팅 키를 걸음 FANOUT 인데 왜 라우팅 키를? 하나의 익스체인지에 여러 큐가 연결되어 있으니까? 라우팅 키(큐이름)으로 전달하도록 해줌
+        // 각 뉴스 별로 라우팅 키를 걸음 FANOUT 인데 왜 라우팅 키를? config에서 라우팅 키를 설정해 주지 않았기 때문에 익스체인지에 연결된 모든 큐에 메시지가 전달됨.
         rabbitTemplate.convertAndSend(RabbitMQConfig4.FANOUT_EXCHANGE_FOR_NEWS,newsType,message);
         System.out.println("News Published: " + message);
         return message;
