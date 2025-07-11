@@ -20,4 +20,9 @@ public class LogConsumer {
     public void consumeInfo(String message){
         System.out.println("Info를 받음: " + message );
     }
+
+    @RabbitListener(queues = RabbitMQConfig5.ALL_LOG_QUEUE)
+    public void consumeAllLogs(String message){
+        System.out.println("로그를 받음:" + message);
+    }
 }
