@@ -12,7 +12,7 @@ public class LogPublisher {
     private final RabbitTemplate rabbitTemplate;
 
     public void publish(String routingKey,String message){
-        rabbitTemplate.convertAndSend(RabbitMQConfig5.DIRECT_EXCHANGE,routingKey,message);
+        rabbitTemplate.convertAndSend(RabbitMQConfig5.TOPIC_EXCHANGE,routingKey,message);
         System.out.println("message published: "+ routingKey + " " + message);
     }
 }
