@@ -45,6 +45,6 @@ public class RabbitMQConfig7 {
 
     @Bean
     public Binding deadLetterBinding(){
-        return BindingBuilder.bind(deadLetterQueue()).to(deadLetterExchange()).with("DLQ");
+        return BindingBuilder.bind(deadLetterQueue()).to(deadLetterExchange()).with(DLQ);
     }
 }
