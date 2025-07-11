@@ -10,7 +10,7 @@ public class RabbitMQConfig7 {
     public static final String ORDER_COMPLETED_QUEUE = "order_completed_queue";
     public static final String ORDER_EXCHANGE = "order_completed_exchange";
     public static final String DLQ = "deadLetterQueue";
-    public static final String DLX = "deadLetterExhange";
+    public static final String DLX = "deadLetterExchange";
 
     @Bean
     public TopicExchange orderExchange(){
