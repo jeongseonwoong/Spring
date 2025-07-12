@@ -1,6 +1,5 @@
 package RabbitMQ.RabbitMQ.step8;
 
-import RabbitMQ.RabbitMQ.step7.RabbitMQConfig7;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
