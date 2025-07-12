@@ -1,4 +1,4 @@
-package RabbitMQ.RabbitMQ.step9;
+package RabbitMQ.RabbitMQ.step10;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.repository.Modifying;
 
 import java.time.LocalDateTime;
 
