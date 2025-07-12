@@ -1,4 +1,4 @@
-package RabbitMQ.RabbitMQ.step9;
+package RabbitMQ.RabbitMQ.step10;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
