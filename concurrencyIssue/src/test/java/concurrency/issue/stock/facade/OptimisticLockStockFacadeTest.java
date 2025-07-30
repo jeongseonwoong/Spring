@@ -34,7 +34,7 @@ class OptimisticLockStockFacadeTest {
     }
 
     @Test
-    public void PessimisticLock_동시에_100개의_재고감소_요청() throws InterruptedException {
+    public void OptimisticLock_동시에_100개의_재고감소_요청() throws InterruptedException {
         int threadCount = 100;
         ExecutorService executorService = Executors.newFixedThreadPool(32);
         CountDownLatch latch = new CountDownLatch(threadCount);
