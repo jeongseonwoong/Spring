@@ -24,6 +24,9 @@ class StockServiceTest {
     @Autowired
     private StockRepository stockRepository;
 
+    @Autowired
+    private PessimisticLockStockService pessimisticLockStockService;
+
     @BeforeEach
     public void before(){
         stockRepository.saveAndFlush(new Stock(1L,100L));
@@ -61,10 +64,32 @@ class StockServiceTest {
 
         latch.await();
 
-        //race condition 발생
+        //race condition 발생 synchronized 사용하려면 @Transactional 사용하면 안댐. transaction에 의해 db에 커밋되기 전에 다른 스레드가 실행될 수 있기때문에
         Stock stock = stockRepository.findByProductId(1L).orElseThrow();
 //        org.assertj.core.api.Assertions.assertThat(stock.getQuantity()).isEqualTo(0);
         org.assertj.core.api.Assertions.assertThat(stock.getQuantity()).isNotEqualTo(0);
+    }
 
+    @Test
+    public void PessimisticLock_동시에_100개의_재고감소_요청() throws InterruptedException {
+        int threadCount = 100;
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch latch = new CountDownLatch(threadCount);
+
+        for (int i=0; i< threadCount; i++) {
+            executorService.submit(()->{
+                try {
+                    pessimisticLockStockService.decrease(1L,1L);
+                }finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        latch.await();
+
+        //race condition 발생
+        Stock stock = stockRepository.findByProductId(1L).orElseThrow();
+        org.assertj.core.api.Assertions.assertThat(stock.getQuantity()).isEqualTo(0);
     }
 }
