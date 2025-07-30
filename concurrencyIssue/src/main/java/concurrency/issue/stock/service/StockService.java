@@ -24,6 +24,14 @@ public class StockService {
         stockRepository.save(stock);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void decreaseByLettuce(Long productId, Long quantity){
+        Stock stock = stockRepository.findByProductId(productId).orElseThrow(() ->
+                new RuntimeException("해당하는 stock이 존재하지 않습니다."));
+        stock.decrease(quantity);
+        stockRepository.save(stock);
+    }
+
     /**
      * 부모 transaction의 존재 여부와 상관없이, 새로운 transaction을 만들어 적용한다.
      * 기존에 실행하던 부모 transaction이 있는 경우 → 부모 transaction은 자식 transaction이 끝날 때까지 대기한다.
