@@ -49,4 +49,12 @@ public class StockService {
         // 갱신되 값을 저장
         stockRepository.save(stock);
     }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void decreaseByRedisson(Long productId, Long quantity) {
+        Stock stock = stockRepository.findByProductId(productId).orElseThrow(() ->
+                new RuntimeException("해당하는 stock이 존재하지 않습니다."));
+        stock.decrease(quantity);
+        stockRepository.save(stock);
+    }
 }
