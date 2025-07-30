@@ -20,3 +20,14 @@ spring:
 logging:
   level:
     org.springframework.cache: trace
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mysql://spring-db-instance-1.cfs6yqiee9ae.ap-northeast-2.rds.amazonaws.com:3306/mydb
+    username: admin
+    password: tjsdnd11227
